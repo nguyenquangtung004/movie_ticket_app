@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './Componets/header.dart';
+import './Componets/search.dart';
+import './Componets/category_item.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,21 +15,21 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: const Color(0xFF0b1028), // Màu chính của theme
-        scaffoldBackgroundColor: const Color(0xFF0b1028), // Màu nền
+        primaryColor: const Color(0xFF0b1028),
+        scaffoldBackgroundColor: const Color(0xFF0b1028),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF0b1028), // Màu nền của AppBar
-          foregroundColor: Colors.white, // Màu chữ và icon
+          backgroundColor: Color(0xFF0b1028),
+          foregroundColor: Colors.white,
         ),
         textTheme: const TextTheme(
-          bodyLarge: TextStyle(color: Colors.white), // Màu chữ mặc định
-          bodyMedium: TextStyle(color: Colors.white), // Màu chữ mặc định
+          bodyLarge: TextStyle(color: Colors.white),
+          bodyMedium: TextStyle(color: Colors.white),
         ),
       ),
       home: SafeArea(
         child: Scaffold(
-          appBar: CustomAppBar(), // Sử dụng CustomAppBar từ header.dart
-          body: const CustomBody(), // Gọi Body tùy chỉnh
+          appBar: CustomAppBar(),
+          body: const CustomBody(),
         ),
       ),
     );
@@ -42,7 +44,6 @@ class CustomBody extends StatefulWidget {
 }
 
 class _CustomBodyState extends State<CustomBody> {
-  // Danh sách các văn bản cho từng item
   final List<String> items = [
     'All',
     'Drama',
@@ -56,16 +57,41 @@ class _CustomBodyState extends State<CustomBody> {
     'Mystery',
   ];
 
-  // Lưu trạng thái item được chọn
   int _selectedIndex = 0;
+
+  final List<Map<String, dynamic>> sliderData = [
+    {
+      "title": "Movie 1",
+      "rate": "8.5/10",
+      "image": "https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg",
+    },
+    {
+      "title": "Movie 2",
+      "rate": "7.9/10",
+      "image": "https://cdn.pixabay.com/photo/2023/11/10/16/05/anime-8379662_640.jpg",
+    },
+    {
+      "title": "Movie 3",
+      "rate": "9.0/10",
+      "image": "https://cdn.pixabay.com/photo/2020/08/27/18/49/people-5522679_640.jpg",
+    },
+    {
+      "title": "Movie 4",
+      "rate": "8.3/10",
+      "image": "https://cdn.pixabay.com/photo/2017/08/02/00/07/people-2568887_640.jpg",
+    },
+  ];
+
+  final PageController _pageController = PageController(viewportFraction: 0.8);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16.0), // Thêm padding cho giao diện
+      padding: const EdgeInsets.all(16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Search bar container
+          // Search bar
           SizedBox(
             height: 60,
             child: Row(
@@ -74,130 +100,131 @@ class _CustomBodyState extends State<CustomBody> {
               ],
             ),
           ),
-          const SizedBox(height: 16), // Khoảng cách
+          const SizedBox(height: 16),
+          // Categories
           SizedBox(
-            height: 70, // Chiều cao tổng của ListView
+            height: 70,
             child: ListView.builder(
-              scrollDirection: Axis.horizontal, // Cuộn theo chiều ngang
-              itemCount: items.length, // Số lượng item dựa trên danh sách
+              scrollDirection: Axis.horizontal,
+              itemCount: items.length,
               itemBuilder: (context, index) {
-                final isSelected = index == _selectedIndex;
-
                 return GestureDetector(
                   onTap: () {
-                    // Thay đổi trạng thái item được chọn
                     setState(() {
                       _selectedIndex = index;
                     });
                   },
-                  child: Container(
-                    width: 120, // Chiều rộng từng item
-                    margin: const EdgeInsets.only(
-                        right: 16), // Khoảng cách giữa các item
-                    decoration: BoxDecoration(
-                      gradient: isSelected
-                          ? const LinearGradient(
-                              colors: [
-                                Color.fromRGBO(0, 150, 255, 1.0),
-                                Color.fromRGBO(0, 180, 255, 1.0),
-                              ],
-                            )
-                          : null, // Không gradient nếu không được chọn
-                      color: isSelected
-                          ? null
-                          : const Color(0xFF0b1028), // Màu nền giống background
-                      borderRadius: BorderRadius.circular(5),
-                      // border: isSelected
-                      //     ? Border.all(color: Colors.white, width: 2)
-                      //     : null,
-                    ),
-                    child: Center(
-                      child: Text(
-                        items[index], // Text động từ danh sách
-                        style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.grey,
-                          fontSize: 16,
-                          fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.normal,
-                        ),
-                      ),
-                    ),
+                  child: CategoryItem(
+                    isSelected: index == _selectedIndex,
+                    title: items[index],
                   ),
                 );
               },
             ),
           ),
+          const SizedBox(height: 10),
+          // Now Playing
+          const Text(
+            "Now Playing",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 10),
+          // Slider
+          SizedBox(
+            height: 220, // Đặt chiều cao cố định cho slider
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: sliderData.length,
+              itemBuilder: (context, index) {
+                final data = sliderData[index];
+                return AnimatedBuilder(
+                  animation: _pageController,
+                  builder: (context, child) {
+                    double scale = 1.0;
+                    if (_pageController.position.haveDimensions) {
+                      scale = _pageController.page! - index;
+                      scale = (1 - scale.abs() * 0.3).clamp(0.85, 1.0);
+                    }
+
+                    return Center(
+                      child: Transform.scale(
+                        scale: scale,
+                        child: Container(
+                          width: 300,
+                          height: 200,
+                          margin: const EdgeInsets.symmetric(horizontal: 5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.network(
+                                  data["image"],
+                                  fit: BoxFit.cover,
+                                  width: 300,
+                                  height: 200,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: Colors.grey,
+                                      child: const Center(
+                                        child: Text(
+                                          'Image Error',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 20,
+                                left: 20,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      data["title"],
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 5),
+                                    Text(
+                                      data["rate"],
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
         ],
-      ),
-    );
-  }
-}
-
-class SearchWidget extends StatelessWidget {
-  const SearchWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          color: const Color.fromRGBO(20, 27, 50, 1.0),
-          borderRadius: BorderRadius.circular(22),
-        ),
-        child: Row(
-          children: [
-            // Icon search
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Icon(
-                Icons.search,
-                color: Colors.grey,
-              ),
-            ),
-            const SizedBox(width: 8),
-            // TextField for search input
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search Movie',
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade600,
-                  ),
-                  border: InputBorder.none,
-                ),
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 73, 173, 255),
-                    Color.fromRGBO(98, 179, 246, 1),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.settings_input_composite_outlined,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  // Thêm hành động tại đây (nếu cần)
-                },
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
