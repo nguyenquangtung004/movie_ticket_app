@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './Componets/header.dart'; 
+import './Componets/header.dart';
 
 void main() {
   runApp(const MainApp());
@@ -34,9 +34,30 @@ class MainApp extends StatelessWidget {
   }
 }
 
-// CustomBody Widget
-class CustomBody extends StatelessWidget {
+class CustomBody extends StatefulWidget {
   const CustomBody({Key? key}) : super(key: key);
+
+  @override
+  State<CustomBody> createState() => _CustomBodyState();
+}
+
+class _CustomBodyState extends State<CustomBody> {
+  // Danh sách các văn bản cho từng item
+  final List<String> items = [
+    'All',
+    'Drama',
+    'Comedy',
+    'Horror',
+    'Romance',
+    'Sci-fi',
+    'Fantasy',
+    'Thriller',
+    'Adventure',
+    'Mystery',
+  ];
+
+  // Lưu trạng thái item được chọn
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,16 +69,63 @@ class CustomBody extends StatelessWidget {
           SizedBox(
             height: 60,
             child: Row(
-              children: [
+              children: const [
                 SearchWidget(),
               ],
             ),
           ),
-          // Add more widgets/content below
           const SizedBox(height: 16), // Khoảng cách
-          Text(
-            'This is the body content!',
-            style: Theme.of(context).textTheme.bodyLarge,
+          SizedBox(
+            height: 70, // Chiều cao tổng của ListView
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal, // Cuộn theo chiều ngang
+              itemCount: items.length, // Số lượng item dựa trên danh sách
+              itemBuilder: (context, index) {
+                final isSelected = index == _selectedIndex;
+
+                return GestureDetector(
+                  onTap: () {
+                    // Thay đổi trạng thái item được chọn
+                    setState(() {
+                      _selectedIndex = index;
+                    });
+                  },
+                  child: Container(
+                    width: 120, // Chiều rộng từng item
+                    margin: const EdgeInsets.only(
+                        right: 16), // Khoảng cách giữa các item
+                    decoration: BoxDecoration(
+                      gradient: isSelected
+                          ? const LinearGradient(
+                              colors: [
+                                Color.fromRGBO(0, 150, 255, 1.0),
+                                Color.fromRGBO(0, 180, 255, 1.0),
+                              ],
+                            )
+                          : null, // Không gradient nếu không được chọn
+                      color: isSelected
+                          ? null
+                          : const Color(0xFF0b1028), // Màu nền giống background
+                      borderRadius: BorderRadius.circular(5),
+                      // border: isSelected
+                      //     ? Border.all(color: Colors.white, width: 2)
+                      //     : null,
+                    ),
+                    child: Center(
+                      child: Text(
+                        items[index], // Text động từ danh sách
+                        style: TextStyle(
+                          color: isSelected ? Colors.white : Colors.grey,
+                          fontSize: 16,
+                          fontWeight:
+                              isSelected ? FontWeight.bold : FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -113,14 +181,14 @@ class SearchWidget extends StatelessWidget {
                 gradient: const LinearGradient(
                   colors: [
                     Color.fromARGB(255, 73, 173, 255),
-                    Color.fromRGBO(98, 179, 246, 1)
+                    Color.fromRGBO(98, 179, 246, 1),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(14),
               ),
               child: IconButton(
                 icon: const Icon(
-                  Icons.settings_input_composite_outlined, // Thay đổi thành biểu tượng điều khiển
+                  Icons.settings_input_composite_outlined,
                   color: Colors.white,
                 ),
                 onPressed: () {
