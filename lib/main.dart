@@ -1,3 +1,4 @@
+import 'dart:async'; // Thêm thư viện để sử dụng Timer
 import 'package:flutter/material.dart';
 import './Componets/header.dart';
 import './Componets/search.dart';
@@ -7,7 +8,6 @@ void main() {
   runApp(const MainApp());
 }
 
-// MainApp Widget
 class MainApp extends StatelessWidget {
   const MainApp({Key? key}) : super(key: key);
 
@@ -62,27 +62,62 @@ class _CustomBodyState extends State<CustomBody> {
   final List<Map<String, dynamic>> sliderData = [
     {
       "title": "Movie 1",
-      "rate": "8.5/10",
-      "image": "https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg",
+      "rate": 4.5, // Giá trị đánh giá từ 0-5
+      "image":
+          "https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg",
     },
     {
       "title": "Movie 2",
-      "rate": "7.9/10",
-      "image": "https://cdn.pixabay.com/photo/2023/11/10/16/05/anime-8379662_640.jpg",
+      "rate": 4.0,
+      "image":
+          "https://cdn.pixabay.com/photo/2023/11/10/16/05/anime-8379662_640.jpg",
     },
     {
       "title": "Movie 3",
-      "rate": "9.0/10",
-      "image": "https://cdn.pixabay.com/photo/2020/08/27/18/49/people-5522679_640.jpg",
+      "rate": 5.0,
+      "image":
+          "https://cdn.pixabay.com/photo/2020/08/27/18/49/people-5522679_640.jpg",
     },
     {
       "title": "Movie 4",
-      "rate": "8.3/10",
-      "image": "https://cdn.pixabay.com/photo/2017/08/02/00/07/people-2568887_640.jpg",
+      "rate": 3.5,
+      "image":
+          "https://cdn.pixabay.com/photo/2017/08/02/00/07/people-2568887_640.jpg",
     },
   ];
 
   final PageController _pageController = PageController(viewportFraction: 0.8);
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startAutoSlide();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Hủy Timer khi widget bị hủy
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _startAutoSlide() {
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_pageController.page == sliderData.length - 1) {
+        _pageController.animateToPage(
+          0,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      } else {
+        _pageController.nextPage(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +170,7 @@ class _CustomBodyState extends State<CustomBody> {
           const SizedBox(height: 10),
           // Slider
           SizedBox(
-            height: 220, // Đặt chiều cao cố định cho slider
+            height: 220,
             child: PageView.builder(
               controller: _pageController,
               itemCount: sliderData.length,
@@ -204,12 +239,34 @@ class _CustomBodyState extends State<CustomBody> {
                                       ),
                                     ),
                                     const SizedBox(height: 5),
-                                    Text(
-                                      data["rate"],
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                      ),
+                                    // Rating Stars và Text hiển thị điểm đánh giá trên cùng một dòng
+                                    Row(
+                                      children: [
+                                        // Dòng sao
+                                        Row(
+                                          children:
+                                              List.generate(5, (starIndex) {
+                                            return Icon(
+                                              starIndex < data["rate"]
+                                                  ? Icons.star
+                                                  : Icons.star_border,
+                                              color: Colors.yellow,
+                                              size: 16,
+                                            );
+                                          }),
+                                        ),
+                                        const SizedBox(
+                                            width:
+                                                5), // Khoảng cách giữa sao và text
+                                        // Điểm đánh giá
+                                        Text(
+                                          "${data["rate"]}/5.0",
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
