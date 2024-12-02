@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:movie_ticket_app/Componets/promo_card_2.dart';
 import './Componets/header.dart';
 import './Componets/search.dart';
 import './Componets/category_item.dart';
 import './Componets/slider_widget.dart'; // Import SliderWidget
 import './Componets/card_item_promo.dart'; // Import HorizontalCards
-
+import './Componets/promo_card_2.dart';
 void main() {
   runApp(const MainApp());
 }
@@ -89,7 +90,8 @@ class _CustomBodyState extends State<CustomBody> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView( // Bọc toàn bộ nội dung bằng SingleChildScrollView
+    return SingleChildScrollView(
+      // Bọc toàn bộ nội dung bằng SingleChildScrollView
       child: Container(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -147,6 +149,27 @@ class _CustomBodyState extends State<CustomBody> {
             ),
             const SizedBox(height: 10),
             HorizontalCards(),
+            const SizedBox(height: 10),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Promo",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+                Text(
+                  "View All",
+                  style: TextStyle(
+                    color: Color.fromRGBO(52, 173, 252, 1),
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ],
+            ),
+            VerticalCards()
           ],
         ),
       ),
