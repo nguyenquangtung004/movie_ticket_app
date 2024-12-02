@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../View/information_screen.dart'; // Đảm bảo đường dẫn đúng
 
 class HorizontalCards extends StatelessWidget {
   final List<Map<String, String>> cardData = [
@@ -31,49 +32,62 @@ class HorizontalCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 147, // Chiều cao cố định của card
+      height: 147,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: cardData.length,
         itemBuilder: (context, index) {
           final data = cardData[index];
-          return Container(
-            width: 103, // Chiều rộng cố định của card
-            margin: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Colors.grey[800],
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: 6,
-                  offset: const Offset(2, 2),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    data["image"]!,
-                    width: 103,
-                    height: 120,
-                    fit: BoxFit.cover,
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Movie(
+                    title: data["title"]!,
+                    imageUrl: data["image"]!,
                   ),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  data["title"]!,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+              );
+            },
+            child: Container(
+              width: 103,
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.grey[800],
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 6,
+                    offset: const Offset(2, 2),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      data["image"]!,
+                      width: 103,
+                      height: 120,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    data["title"]!,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
           );
         },
