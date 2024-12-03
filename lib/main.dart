@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_ticket_app/View/booking_screen.dart';
-import './Navigation/nav_bottom.dart'; // Import Bottom Navigation
+import 'package:movie_ticket_app/View/movie_seat.dart';
+import './Navigation/nav_bottom.dart'; // Nhập trình điều hướng phía dưới
 import './Componets/header.dart';
 import './Componets/search.dart';
 import './Componets/category_item.dart';
@@ -31,8 +32,10 @@ class MainApp extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.white),
         ),
       ),
-      home: const BottomNavBar(), // Chỉ định Bottom Navigation làm màn hình chính
-      // home: BookingScreen(title: "Movie 1"),
+      home: const BottomNavBar(), // TODO: Đặt màn hình chính là Thanh điều hướng phía dưới
+      // FIXME: Bỏ chú thích nếu cần kiểm tra các màn hình cụ thể
+      // home: BookingScreen(title: "Phim 1"),
+      // home: MovieSeatSelection( title: "Phim 1",),
     );
   }
 }
@@ -44,7 +47,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: const CustomBody(),
+      body: const CustomBody(), // TODO: Thêm nội dung động cho phần thân
     );
   }
 }
@@ -58,42 +61,42 @@ class CustomBody extends StatefulWidget {
 
 class _CustomBodyState extends State<CustomBody> {
   final List<String> items = [
-    'All',
+    'Tất cả',
     'Drama',
-    'Comedy',
-    'Horror',
-    'Romance',
-    'Sci-fi',
-    'Fantasy',
-    'Thriller',
-    'Adventure',
-    'Mystery',
-  ];
+    'Hài',
+    'Kinh dị',
+    'Lãng mạn',
+    'Khoa học viễn tưởng',
+    'Giả tưởng',
+    'Ly kỳ',
+    'Phiêu lưu',
+    'Bí ẩn',
+  ]; // TODO: Định nghĩa danh mục động nếu cần
 
-  int selectedIndex = 0; // Mặc định chọn "All"
+  int selectedIndex = 0; // TODO: Triển khai chức năng chọn danh mục
 
   final List<Map<String, dynamic>> sliderData = [
     {
-      "title": "Movie 1",
+      "title": "Phim 1",
       "rate": 4.5,
       "image": "https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg",
     },
     {
-      "title": "Movie 2",
+      "title": "Phim 2",
       "rate": 4.0,
       "image": "https://cdn.pixabay.com/photo/2023/11/10/16/05/anime-8379662_640.jpg",
     },
     {
-      "title": "Movie 3",
+      "title": "Phim 3",
       "rate": 5.0,
       "image": "https://cdn.pixabay.com/photo/2020/08/27/18/49/people-5522679_640.jpg",
     },
     {
-      "title": "Movie 4",
+      "title": "Phim 4",
       "rate": 3.5,
       "image": "https://cdn.pixabay.com/photo/2017/08/02/00/07/people-2568887_640.jpg",
     },
-  ];
+  ]; // FIXME: Thay thế bằng dữ liệu lấy từ API nếu có
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +110,7 @@ class _CustomBodyState extends State<CustomBody> {
               height: 60,
               child: Row(
                 children: const [
-                  SearchWidget(),
+                  SearchWidget(), // TODO: Triển khai chức năng tìm kiếm
                 ],
               ),
             ),
@@ -122,7 +125,7 @@ class _CustomBodyState extends State<CustomBody> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        selectedIndex = index;
+                        selectedIndex = index; // TODO: Cập nhật trạng thái danh mục được chọn
                       });
                     },
                     child: AnimatedContainer(
@@ -132,7 +135,6 @@ class _CustomBodyState extends State<CustomBody> {
                       decoration: BoxDecoration(
                         color: isSelected ? Colors.blueAccent : Colors.transparent,
                         borderRadius: BorderRadius.circular(16.0),
-                       
                       ),
                       child: SizedBox(
                         width: 90,
@@ -154,45 +156,45 @@ class _CustomBodyState extends State<CustomBody> {
             ),
             const SizedBox(height: 10),
             const Text(
-              "Now Playing",
+              "Đang chiếu",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,
-              ),
+              ), // TODO: Lấy danh sách phim đang chiếu từ API
             ),
             const SizedBox(height: 10),
-            SliderWidget(sliderData: sliderData),
+            SliderWidget(sliderData: sliderData), // FIXME: Xử lý lỗi khi tải widget Slider
             const SizedBox(height: 16),
             const Text(
-              "Coming Soon",
+              "Sắp ra mắt",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,
-              ),
+              ), // TODO: Lấy danh sách phim sắp ra mắt từ API
             ),
             const SizedBox(height: 10),
-            HorizontalCards(),
+            HorizontalCards(), // TODO: Thay thế bằng danh sách phim động
             const SizedBox(height: 10),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Promo",
+                  "Khuyến mãi",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
-                  ),
+                  ), // TODO: Thêm danh sách thẻ khuyến mãi động
                 ),
                 Text(
-                  "View All",
+                  "Xem tất cả",
                   style: TextStyle(
                     color: Color.fromRGBO(52, 173, 252, 1),
                     decoration: TextDecoration.underline,
-                  ),
+                  ), // FIXME: Triển khai điều hướng "Xem tất cả"
                 ),
               ],
             ),
-            VerticalCards(),
+            VerticalCards(), // FIXME: Xử lý tải dữ liệu cho các thẻ dọc
           ],
         ),
       ),

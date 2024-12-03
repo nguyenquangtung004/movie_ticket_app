@@ -54,6 +54,7 @@ class _BookingScreenState extends State<BookingScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => MovieSeatSelection(
+              title: widget.title,
            
           ),
         ),

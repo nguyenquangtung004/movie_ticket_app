@@ -1,70 +1,141 @@
 import 'package:flutter/material.dart';
 
 class MovieSeatSelection extends StatefulWidget {
+  final String title;
+
+  const MovieSeatSelection({super.key, required this.title});
+
   @override
   _MovieSeatSelectionState createState() => _MovieSeatSelectionState();
 }
 
 class _MovieSeatSelectionState extends State<MovieSeatSelection> {
-  List<bool> selectedSeats = List.generate(60, (index) => false);
+  List<int> selectedSeats = []; // Ghế đang được chọn
+  final List<int> bookedSeats = [2, 10, 20, 30]; // Ghế đã được đặt
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF1F1B2E),
+      backgroundColor: const Color.fromRGBO(11, 15, 47, 1),
       appBar: AppBar(
-        backgroundColor: Color(0xFF1F1B2E),
+        backgroundColor: const Color.fromRGBO(11, 15, 47, 1),
         elevation: 0,
         title: Text(
-          'Ralph Breaks the Internet',
-          style: TextStyle(color: Colors.white),
+          widget.title,
+          style: const TextStyle(color: Colors.white),
         ),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 8),
-            Text(
-              'FX Sudirman XXI',
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.7),
-                fontSize: 16,
-              ),
+            // Row trạng thái
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 16,
+                      height: 16,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.5), // Màu mờ cho ghế đã chọn
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    const Text(
+                      'Booked',
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      width: 16,
+                      height: 16,
+                      decoration: BoxDecoration(
+                        color: Colors.blue, // Màu xanh nước biển cho ghế đang chọn
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    const Text(
+                      'Your Seat',
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      width: 16,
+                      height: 16,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF35334A), // Màu nhạt cho ghế trống
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    const Text(
+                      'Available',
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Expanded(
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 9, // 9 cột tổng, bao gồm 2 ô trống làm lối đi
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 9, // 9 cột
                   crossAxisSpacing: 8,
                   mainAxisSpacing: 8,
                 ),
-                itemCount: 54,
+                itemCount: 54, // Tổng số ghế
                 itemBuilder: (context, index) {
                   // Bỏ qua vị trí ô lối đi
                   if (index % 9 == 3 || index % 9 == 4) {
-                    return SizedBox.shrink();
+                    return const SizedBox.shrink();
                   }
+
+                  // Trạng thái ghế
+                  bool isBooked = bookedSeats.contains(index);
+                  bool isSelected = selectedSeats.contains(index);
+
+                  Color seatColor;
+                  if (isBooked) {
+                    seatColor = Color.fromRGBO(66, 71, 106, 1); // Ghế đã đặt
+                  } else if (isSelected) {
+                    seatColor = Colors.blue; // Ghế đang chọn
+                  } else {
+                    seatColor = const Color(0xFF35334A); // Ghế trống
+                  }
+
                   return GestureDetector(
                     onTap: () {
-                      setState(() {
-                        selectedSeats[index] = !selectedSeats[index];
-                      });
+                      if (!isBooked) {
+                        setState(() {
+                          if (isSelected) {
+                            selectedSeats.remove(index);
+                          } else {
+                            selectedSeats.add(index);
+                          }
+                        });
+                      }
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        color: selectedSeats[index]
-                            ? Color(0xFF8C67AC)
-                            : Color(0xFF35334A),
+                        color: seatColor,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
                         child: Text(
                           'A${index + 1}',
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white, fontSize: 12),
                         ),
                       ),
                     ),
@@ -72,11 +143,12 @@ class _MovieSeatSelectionState extends State<MovieSeatSelection> {
                 },
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
+            // Total Price Section
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Color(0xFF2A2941),
+                color: const Color(0xFF2A2941),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -86,13 +158,13 @@ class _MovieSeatSelectionState extends State<MovieSeatSelection> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Total Price ( ${selectedSeats.where((seat) => seat).length} Ticket)',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        'Total Price (${selectedSeats.length} Ticket)',
+                        style: const TextStyle(color: Colors.white, fontSize: 16),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
-                        'Rp ${(selectedSeats.where((seat) => seat).length * 50000).toStringAsFixed(0)}',
-                        style: TextStyle(
+                        'Rp ${(selectedSeats.length * 50000).toStringAsFixed(0)}',
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -101,15 +173,15 @@ class _MovieSeatSelectionState extends State<MovieSeatSelection> {
                     ],
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: selectedSeats.isEmpty ? null : () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF8C67AC),
+                      backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Book Ticket',
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
