@@ -15,38 +15,38 @@ class Movie extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
+    final screenHeight = MediaQuery.of(context).size.height; // TODO: Lấy chiều cao màn hình để điều chỉnh giao diện động
 
     return Scaffold(
       body: DefaultTabController(
-        length: 2, // Số lượng tab
+        length: 2, // TODO: Cấu hình số lượng tab
         child: SingleChildScrollView(
           child: Stack(
             clipBehavior:
-                Clip.none, // Đảm bảo nội dung nằm ngoài Stack không bị cắt
+                Clip.none, // FIXME: Kiểm tra xem nội dung ngoài Stack có thể bị cắt không
             children: [
               Column(
                 children: [
-                  // Ảnh nền
+                  // TODO: Hiển thị ảnh nền cho phần thông tin phim
                   MoviePoster(
                     imageUrl: imageUrl,
-                    height: screenHeight / 3,
+                    height: screenHeight / 3, // FIXME: Điều chỉnh chiều cao ảnh nền phù hợp
                   ),
-                  const SizedBox(height: 100), // Không gian cho TabBar
+                  const SizedBox(height: 100), // TODO: Dành không gian cho TabBar
                   Container(
-                    color: const Color(0xFF0b1028),
-                    child: const MovieTabs(),
+                    color: const Color(0xFF0b1028), // TODO: Đặt màu nền cho TabBar
+                    child: const MovieTabs(), // TODO: Hiển thị tab cho thông tin phim
                   ),
                 ],
               ),
-              // Nội dung trên ảnh nền
+              // TODO: Thêm nội dung nổi trên ảnh nền
               Positioned(
-                top: screenHeight / 3 - 90, // Điều chỉnh khoảng cách từ ảnh nền
+                top: screenHeight / 3 - 90, // FIXME: Điều chỉnh khoảng cách từ ảnh nền cho phù hợp
                 left: 16,
                 right: 16,
                 child: MovieDetails(
-                  title: title,
-                  imageUrl: imageUrl,
+                  title: title, // TODO: Hiển thị tiêu đề phim
+                  imageUrl: imageUrl, // TODO: Hiển thị ảnh đại diện của phim
                 ),
               ),
             ],
