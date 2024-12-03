@@ -31,8 +31,8 @@ class MainApp extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.white),
         ),
       ),
-      // home: const BottomNavBar(), // Chỉ định Bottom Navigation làm màn hình chính
-      home: BookingScreen(title: "Movie 1"),
+      home: const BottomNavBar(), // Chỉ định Bottom Navigation làm màn hình chính
+      // home: BookingScreen(title: "Movie 1"),
     );
   }
 }

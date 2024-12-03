@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../Componets/date_selector.dart';
+import '../Componets/showtime_list.dart';
+import '../View/movie_seat.dart'; // Import màn hình chọn ghế
 
 class BookingScreen extends StatefulWidget {
   final String title;
@@ -45,10 +48,17 @@ class _BookingScreenState extends State<BookingScreen> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    selectedDateIndex = 0; // Mặc định chọn ngày hôm nay
+  void navigateToNextScreen() {
+    if (selectedTheater.isNotEmpty && selectedTime.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MovieSeatSelection(
+           
+          ),
+        ),
+      );
+    }
   }
 
   @override
@@ -57,161 +67,76 @@ class _BookingScreenState extends State<BookingScreen> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Select Country
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0b1028),
-                  border: Border.all(color: Colors.grey.withOpacity(0.5)),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Icon(Icons.location_on, color: Colors.white70),
-                    const Expanded(
-                      child: Text(
-                        "Select Your Country",
-                        style: TextStyle(color: Colors.white70, fontSize: 16),
-                      ),
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Select Country Section
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF0b1028),
+                      border: Border.all(color: Colors.grey.withOpacity(0.5)),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    const Icon(Icons.arrow_drop_down, color: Colors.white70),
-                  ],
-                ),
-              ),
-            ),
-
-            // Choose Date
-            const Text(
-              "Choose Date",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 88,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: dates.length,
-                itemBuilder: (context, index) {
-                  final isPastDate = index < selectedDateIndex;
-                  return GestureDetector(
-                    onTap: () {
-                      if (!isPastDate) {
-                        setState(() {
-                          selectedDateIndex = index;
-                          selectedTime = ""; // Reset thời gian khi chọn ngày mới
-                          selectedTheater = ""; // Reset rạp khi chọn ngày mới
-                        });
-                      }
-                    },
-                    child: Container(
-                      height: 88,
-                      width: 70,
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                      decoration: BoxDecoration(
-                        color: isPastDate
-                            ? Colors.grey.withOpacity(0.3)
-                            : index == selectedDateIndex
-                                ? Colors.blueAccent
-                                : Colors.white.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        dates[index],
-                        style: TextStyle(
-                          color: isPastDate ? Colors.grey : Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 24),
-
-            // Showtimes
-            Expanded(
-              child: ListView.builder(
-                itemCount: showtimes.length,
-                itemBuilder: (context, theaterIndex) {
-                  final theater = showtimes[theaterIndex]['theater'] as String;
-                  final times = showtimes[theaterIndex]['times'] as List<String>;
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 24.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          theater,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                        const Icon(Icons.location_on, color: Colors.white70),
+                        const Expanded(
+                          child: Text(
+                            "Select Your Country",
+                            style: TextStyle(color: Colors.white70, fontSize: 16),
                           ),
                         ),
-                        const SizedBox(height: 12),
-                        SizedBox(
-                          height: 50,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: times.length,
-                            itemBuilder: (context, timeIndex) {
-                              final time = times[timeIndex];
-                              final isPast = isTimePast(time);
-                              final isSelected = selectedTime == time && selectedTheater == theater;
-                              return GestureDetector(
-                                onTap: () {
-                                  if (!isPast) {
-                                    selectTime(theater, time);
-                                  }
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  margin: const EdgeInsets.only(right: 12),
-                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                  decoration: BoxDecoration(
-                                    color: isPast
-                                        ? Colors.grey.withOpacity(0.3)
-                                        : isSelected
-                                            ? Colors.blueAccent
-                                            : Colors.white.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Text(
-                                    time,
-                                    style: TextStyle(
-                                      color: isPast ? Colors.grey : Colors.white,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
+                        const Icon(Icons.arrow_drop_down, color: Colors.white70),
                       ],
                     ),
-                  );
-                },
+                  ),
+                ),
+                // Date Selector
+                DateSelector(
+                  dates: dates,
+                  selectedDateIndex: selectedDateIndex,
+                  onDateSelected: (index) {
+                    setState(() {
+                      selectedDateIndex = index;
+                      selectedTime = "";
+                      selectedTheater = "";
+                    });
+                  },
+                ),
+                const SizedBox(height: 24),
+                // Showtime List
+                Expanded(
+                  child: ShowtimeList(
+                    showtimes: showtimes,
+                    selectedTheater: selectedTheater,
+                    selectedTime: selectedTime,
+                    isTimePast: isTimePast,
+                    onTimeSelected: selectTime,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Nút Next hình tròn
+          if (selectedTheater.isNotEmpty && selectedTime.isNotEmpty)
+            Positioned(
+              bottom: 20,
+              right: 20,
+              child: FloatingActionButton(
+                onPressed: navigateToNextScreen,
+                backgroundColor: Colors.blueAccent,
+                child: const Icon(Icons.arrow_forward, color: Colors.white),
               ),
             ),
-          ],
-        ),
+        ],
       ),
     );
   }
