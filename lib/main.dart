@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_ticket_app/View/booking_screen.dart';
 import './Navigation/nav_bottom.dart'; // Import Bottom Navigation
 import './Componets/header.dart';
 import './Componets/search.dart';
@@ -30,7 +31,8 @@ class MainApp extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.white),
         ),
       ),
-      home: const BottomNavBar(), // Chỉ định Bottom Navigation làm màn hình chính
+      // home: const BottomNavBar(), // Chỉ định Bottom Navigation làm màn hình chính
+      home: BookingScreen(title: "Movie 1"),
     );
   }
 }

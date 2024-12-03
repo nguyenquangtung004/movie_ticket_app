@@ -51,7 +51,7 @@ class MovieTabs extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 480, // Chiều cao nội dung tab
+          height: 600, // Chiều cao nội dung tab
           child: TabBarView(
             children: [
               // Tab "About Movie"
