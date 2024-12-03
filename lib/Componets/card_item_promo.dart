@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../View/information_screen.dart'; // Đảm bảo đường dẫn đúng
+import '../View/information_screen.dart'; // TODO: Đảm bảo đường dẫn đúng đến màn hình chi tiết phim
 
 class HorizontalCards extends StatelessWidget {
+  // TODO: Dữ liệu cho các thẻ ngang, có thể thay bằng API trong tương lai
   final List<Map<String, String>> cardData = [
     {
       "title": "Movie 1",
@@ -32,59 +33,62 @@ class HorizontalCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 147,
+      height: 147, // TODO: Đặt chiều cao cho danh sách thẻ
       child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: cardData.length,
+        scrollDirection: Axis.horizontal, // TODO: Kéo ngang danh sách các thẻ
+        itemCount: cardData.length, // FIXME: Đảm bảo số lượng thẻ không vượt quá dữ liệu thực tế
         itemBuilder: (context, index) {
-          final data = cardData[index];
+          final data = cardData[index]; // TODO: Lấy dữ liệu của từng thẻ
           return GestureDetector(
             onTap: () {
+              // TODO: Điều hướng đến màn hình chi tiết phim khi nhấn vào thẻ
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => Movie(
-                    title: data["title"]!,
-                    imageUrl: data["image"]!,
+                    title: data["title"]!, // FIXME: Đảm bảo dữ liệu "title" luôn tồn tại
+                    imageUrl: data["image"]!, // FIXME: Đảm bảo dữ liệu "image" luôn tồn tại
                   ),
                 ),
               );
             },
             child: Container(
-              width: 103,
-              margin: const EdgeInsets.symmetric(horizontal: 8),
+              width: 103, // TODO: Đặt chiều rộng của từng thẻ
+              margin: const EdgeInsets.symmetric(horizontal: 8), // TODO: Đặt khoảng cách giữa các thẻ
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.grey[800],
+                borderRadius: BorderRadius.circular(8), // TODO: Bo góc cho thẻ
+                color: Colors.grey[800], // TODO: Đặt màu nền cho thẻ
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.black.withOpacity(0.3), // TODO: Đặt bóng cho thẻ
                     blurRadius: 6,
                     offset: const Offset(2, 2),
                   ),
                 ],
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center, // TODO: Căn giữa nội dung trong thẻ
                 children: [
+                  // TODO: Hiển thị ảnh trong thẻ
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8), // TODO: Bo góc cho ảnh
                     child: Image.network(
                       data["image"]!,
                       width: 103,
                       height: 120,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.cover, // FIXME: Đảm bảo ảnh luôn hiển thị đầy đủ trong khung
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 4), // TODO: Thêm khoảng cách giữa ảnh và tiêu đề
+                  // TODO: Hiển thị tiêu đề phim
                   Text(
                     data["title"]!,
                     style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                      color: Colors.white, // TODO: Đặt màu chữ là trắng
+                      fontSize: 12, // TODO: Đặt kích thước chữ
+                      fontWeight: FontWeight.bold, // TODO: Đặt kiểu chữ đậm
                     ),
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.center, // TODO: Căn giữa tiêu đề
                   ),
                 ],
               ),
