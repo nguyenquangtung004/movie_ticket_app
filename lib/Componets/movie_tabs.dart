@@ -7,10 +7,38 @@ class MovieTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final videoUrls = [
-    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-    'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
-    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-  ];
+      'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+      'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+      'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+    ];
+
+    final List<Map<String, String>> castData = [
+      {
+        "name": "Dakota Fanning",
+        "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ90EwClzVT2DOgDNo2vO9Y09aYI4tHtmM9KHWeZ0Wu7wg_-sFwyDbCDTg&s=10"
+      },
+      {
+        "name": "Elle Fanning",
+        "avatar": "https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcQ67ZicdJVc_p66PwosUc4J28NZ13qlY0retwNUlIGYUAzmDL7DaPhes8UItenMzOkAIpH1SFY&s=19"
+      },
+      {
+        "name": "Hitoshi Takagi",
+        "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRHxyYhq3rRmo4GnTiB2E67xLxxIduihlJ-w2tfTbmwDOyUGS_Qt5mfIs&s=10"
+      },
+      {
+        "name": "Noriko Hidaka",
+        "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp5YYrkKpiRO2XUhc-OnbUyvP5TI9kll3Ig-HiEnviTNcVkI9eXQcpQt0&s=10"
+      },
+      {
+        "name": "Lisa Michelson",
+        "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGETN0rOfHuC-CCIHX5ETAhJ62gJeADOuH8-LW3U0&s=10"
+      },
+      {
+        "name": "Pat Carroll",
+        "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiNizOmPlPMfS3xf4332o5XYpkozS0hKOKRi4asJ9C7uBsIJ3g4sz6oQg&s=10"
+      },
+    ];
+
     return Column(
       children: [
         const TabBar(
@@ -23,7 +51,7 @@ class MovieTabs extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 1000, // Chiều cao nội dung tab
+          height: 480, // Chiều cao nội dung tab
           child: TabBarView(
             children: [
               // Tab "About Movie"
@@ -87,9 +115,7 @@ class MovieTabs extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 8,
-                    ),
+                    const SizedBox(height: 8),
                     const Text(
                       "Cast & Crew:",
                       style: TextStyle(
@@ -97,15 +123,14 @@ class MovieTabs extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: 18),
                     ),
+                    const SizedBox(height: 8),
                     SizedBox(
-                      height: 8,
-                    ),
-                    SizedBox(
-                      height: 120,//Khung list view
+                      height: 120, // Khung list view
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: 10, // Số lượng phần tử trong danh sách
+                        itemCount: castData.length,
                         itemBuilder: (context, index) {
+                          final castMember = castData[index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Column(
@@ -113,19 +138,29 @@ class MovieTabs extends StatelessWidget {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ90EwClzVT2DOgDNo2vO9Y09aYI4tHtmM9KHWeZ0Wu7wg_-sFwyDbCDTg&s=10', // URL của ảnh placeholder
+                                    castMember["avatar"]!,
                                     width: 80,
                                     height: 80,
                                     fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                        width: 80,
+                                        height: 80,
+                                        color: Colors.grey,
+                                        child: const Icon(Icons.person,
+                                            color: Colors.white),
+                                      );
+                                    },
                                   ),
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  'Dakota Fanning', // Tên diễn viên
+                                  castMember["name"]!,
                                   style: const TextStyle(
                                     color: Colors.white70,
                                     fontSize: 14,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ],
                             ),
@@ -133,8 +168,7 @@ class MovieTabs extends StatelessWidget {
                         },
                       ),
                     ),
-                    
-                      HorizontalVideoList(videoUrls: videoUrls),
+                    HorizontalVideoList(videoUrls: videoUrls),
                   ],
                 ),
               ),
