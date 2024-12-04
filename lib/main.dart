@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_ticket_app/View/booking_screen.dart';
 import 'package:movie_ticket_app/View/movie_seat.dart';
+import 'package:movie_ticket_app/View/oder_screen.dart';
 import './Navigation/nav_bottom.dart'; // Nhập trình điều hướng phía dưới
 import './Componets/header.dart';
 import './Componets/search.dart';
@@ -32,10 +33,11 @@ class MainApp extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.white),
         ),
       ),
-      home: const BottomNavBar(), // TODO: Đặt màn hình chính là Thanh điều hướng phía dưới
+      // home: const BottomNavBar(), // TODO: Đặt màn hình chính là Thanh điều hướng phía dưới
       // FIXME: Bỏ chú thích nếu cần kiểm tra các màn hình cụ thể
       // home: BookingScreen(title: "Phim 1"),
       // home: MovieSeatSelection( title: "Phim 1",),
+      home: OderScreen(),
     );
   }
 }
