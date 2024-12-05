@@ -155,18 +155,21 @@ class SigninScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Center(
-                child: RichText(
-                  text: const TextSpan(
-                    text: 'Create new account ?',
-                    style: TextStyle(),
-                    children: [
-                      TextSpan(
-                        text: ' Sign Up',
-                        style: TextStyle(
-                          color: Color.fromRGBO(29, 150, 219, 1),
-                        ),
-                      )
-                    ],
+                child: GestureDetector(
+                  onTap: () => Navigator.pushReplacementNamed(context, '/signup'),
+                  child: RichText(
+                    text: const TextSpan(
+                      text: 'Create new account ?',
+                      style: TextStyle(),
+                      children: [
+                        TextSpan(
+                          text: ' Sign Up',
+                          style: TextStyle(
+                            color: Color.fromRGBO(29, 150, 219, 1),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
