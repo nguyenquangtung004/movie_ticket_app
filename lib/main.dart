@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movie_ticket_app/View/SignIn_screen.dart';
 import 'package:movie_ticket_app/View/booking_screen.dart';
 import 'package:movie_ticket_app/View/movie_seat.dart';
 import 'package:movie_ticket_app/View/oder_screen.dart';
+import 'package:movie_ticket_app/View/on_boarding.dart';
+import 'package:movie_ticket_app/View/welcome_screen.dart';
 import './Navigation/nav_bottom.dart'; // Nhập trình điều hướng phía dưới
 import './Componets/header.dart';
 import './Componets/search.dart';
@@ -33,11 +36,15 @@ class MainApp extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.white),
         ),
       ),
-      // home: const BottomNavBar(), // TODO: Đặt màn hình chính là Thanh điều hướng phía dưới
-      // FIXME: Bỏ chú thích nếu cần kiểm tra các màn hình cụ thể
-      // home: BookingScreen(title: "Phim 1"),
-      // home: MovieSeatSelection( title: "Phim 1",),
-      home: OderScreen(),
+      // initialRoute: '/splash', // Route khởi tạo
+      // routes: {
+      //   '/splash': (context) => const SplashScreen(),
+      //   '/onboard':(context) => const OnBoarding(),
+      //   '/': (context) => const BottomNavBar(), // Đặt route HomeScreen
+      //   '/home': (context) => const HomeScreen(),
+      //   '/order': (context) => const OderScreen(),
+      // },
+      home: SigninScreen(),
     );
   }
 }
@@ -81,22 +88,26 @@ class _CustomBodyState extends State<CustomBody> {
     {
       "title": "Phim 1",
       "rate": 4.5,
-      "image": "https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg",
+      "image":
+          "https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg",
     },
     {
       "title": "Phim 2",
       "rate": 4.0,
-      "image": "https://cdn.pixabay.com/photo/2023/11/10/16/05/anime-8379662_640.jpg",
+      "image":
+          "https://cdn.pixabay.com/photo/2023/11/10/16/05/anime-8379662_640.jpg",
     },
     {
       "title": "Phim 3",
       "rate": 5.0,
-      "image": "https://cdn.pixabay.com/photo/2020/08/27/18/49/people-5522679_640.jpg",
+      "image":
+          "https://cdn.pixabay.com/photo/2020/08/27/18/49/people-5522679_640.jpg",
     },
     {
       "title": "Phim 4",
       "rate": 3.5,
-      "image": "https://cdn.pixabay.com/photo/2017/08/02/00/07/people-2568887_640.jpg",
+      "image":
+          "https://cdn.pixabay.com/photo/2017/08/02/00/07/people-2568887_640.jpg",
     },
   ]; // FIXME: Thay thế bằng dữ liệu lấy từ API nếu có
 
@@ -127,15 +138,18 @@ class _CustomBodyState extends State<CustomBody> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        selectedIndex = index; // TODO: Cập nhật trạng thái danh mục được chọn
+                        selectedIndex =
+                            index; // TODO: Cập nhật trạng thái danh mục được chọn
                       });
                     },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 8.0),
                       decoration: BoxDecoration(
-                        color: isSelected ? Colors.blueAccent : Colors.transparent,
+                        color:
+                            isSelected ? Colors.blueAccent : Colors.transparent,
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: SizedBox(
@@ -165,7 +179,9 @@ class _CustomBodyState extends State<CustomBody> {
               ), // TODO: Lấy danh sách phim đang chiếu từ API
             ),
             const SizedBox(height: 10),
-            SliderWidget(sliderData: sliderData), // FIXME: Xử lý lỗi khi tải widget Slider
+            SliderWidget(
+                sliderData:
+                    sliderData), // FIXME: Xử lý lỗi khi tải widget Slider
             const SizedBox(height: 16),
             const Text(
               "Sắp ra mắt",

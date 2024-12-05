@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_ticket_app/View/oder_screen.dart';
 
 class TotalPriceSection extends StatelessWidget {
   final int selectedSeatsCount;
@@ -40,19 +41,29 @@ class TotalPriceSection extends StatelessWidget {
             ],
           ),
           ElevatedButton(
-            onPressed: selectedSeatsCount > 0 ? onBookTicket : null,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+  onPressed: selectedSeatsCount > 0
+      ? () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const OderScreen(),
             ),
-            child: const Text(
-              'Book Ticket',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-          ),
+          );
+        }
+      : null,
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.blue,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8),
+    ),
+    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+  ),
+  child: const Text(
+    'Book Ticket',
+    style: TextStyle(color: Colors.white, fontSize: 16),
+  ),
+),
+
         ],
       ),
     );

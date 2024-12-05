@@ -72,6 +72,7 @@ class _MovieSeatSelectionState extends State<MovieSeatSelection> {
               selectedSeatsCount: selectedSeats.length,
               onBookTicket: () {
                 // TODO: Xử lý sự kiện đặt vé
+                
               },
             ),
             const SizedBox(height: 10,),

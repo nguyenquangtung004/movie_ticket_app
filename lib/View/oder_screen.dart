@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_ticket_app/View/succes_ticket_screen.dart';
 
 class OderScreen extends StatefulWidget {
   const OderScreen({super.key});
@@ -18,7 +19,7 @@ class _OderScreenState extends State<OderScreen> {
         title: //TODO: Tiêu Đề Màn Hình
             Center(
           child: const Text(
-            "Checkout \n Movie",
+            "Checkout \n  Movie",
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20),
           ),
@@ -30,7 +31,7 @@ class _OderScreenState extends State<OderScreen> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              //TODO
+              //TODO: Ảnh bên trái và các text bên phải
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -226,7 +227,12 @@ class _OderScreenState extends State<OderScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       // TODO: Xử lý sự kiện bấm nút
-                      print("Checkout button pressed");
+                      // print("Checkout button pressed");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context)=> const SuccessCheckoutScreen()),
+                      );
+
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromRGBO(61, 88, 248, 1), // Màu nền của nút
@@ -244,6 +250,7 @@ class _OderScreenState extends State<OderScreen> {
                         fontWeight: FontWeight.bold, // Độ đậm của chữ
                       ),
                     ),
+
                   ),
                 ),
               ),
