@@ -47,7 +47,7 @@ class OnBoarding extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   // Chuyển sang màn hình Home
-                  Navigator.pushReplacementNamed(context, '/home');
+                  Navigator.pushReplacementNamed(context, '/login');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,

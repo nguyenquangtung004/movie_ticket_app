@@ -4,6 +4,7 @@ import 'package:movie_ticket_app/View/booking_screen.dart';
 import 'package:movie_ticket_app/View/movie_seat.dart';
 import 'package:movie_ticket_app/View/oder_screen.dart';
 import 'package:movie_ticket_app/View/on_boarding.dart';
+import 'package:movie_ticket_app/View/sign_up_screen.dart';
 import 'package:movie_ticket_app/View/welcome_screen.dart';
 import './Navigation/nav_bottom.dart'; // Nhập trình điều hướng phía dưới
 import './Componets/header.dart';
@@ -40,11 +41,12 @@ class MainApp extends StatelessWidget {
       // routes: {
       //   '/splash': (context) => const SplashScreen(),
       //   '/onboard':(context) => const OnBoarding(),
-      //   '/': (context) => const BottomNavBar(), // Đặt route HomeScreen
+      //   '/login': (context) => const SigninScreen(), 
+      //   '/': (context) => const BottomNavBar(), 
       //   '/home': (context) => const HomeScreen(),
       //   '/order': (context) => const OderScreen(),
       // },
-      home: SigninScreen(),
+      home: SignUpScreen(),
     );
   }
 }
