@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movie_ticket_app/View/home_screen.dart';
+import 'package:movie_ticket_app/View/my_ticket_screen.dart';
 import 'package:movie_ticket_app/main.dart'; // TODO: Import màn hình chính từ main.dart
 
 class BottomNavBar extends StatefulWidget {
@@ -15,7 +17,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const WalletScreen(),
-    const MyTicketsScreen(),
+    const MyTicketScreen(),
   ];
 
   @override
@@ -72,22 +74,3 @@ class WalletScreen extends StatelessWidget {
   }
 }
 
-// TODO: Màn hình vé của tôi
-class MyTicketsScreen extends StatelessWidget {
-  const MyTicketsScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("My Tickets"), // TODO: Tiêu đề của màn hình vé
-      ),
-      body: const Center(
-        child: Text(
-          "My Tickets Screen", // TODO: Nội dung màn hình vé
-          style: TextStyle(color: Colors.white, fontSize: 24), // TODO: Kiểu chữ và màu sắc
-        ),
-      ),
-    );
-  }
-}
