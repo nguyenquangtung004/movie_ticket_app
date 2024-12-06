@@ -3,6 +3,7 @@ import 'package:movie_ticket_app/View/SignIn_screen.dart';
 import 'package:movie_ticket_app/View/on_boarding.dart';
 // import 'package:movie_ticket_app/View/sign_in_screen.dart';
 import 'package:movie_ticket_app/View/sign_up_screen.dart';
+import 'package:movie_ticket_app/View/tickets_detail_screen.dart';
 import 'package:movie_ticket_app/View/user_profiling_screen.dart';
 import 'package:movie_ticket_app/View/confirmation_profile.dart';
 import 'package:movie_ticket_app/View/my_ticket_screen.dart';
@@ -43,10 +44,11 @@ class MainApp extends StatelessWidget {
         '/user_profiling': (context) => const UserProfilingScreen(),
         '/confirmation_pro': (context) => const ConfirmationProfileScreen(),
         '/': (context) => const BottomNavBar(),
-        '/home': (context) => const HomeScreen(),
         '/my_ticket': (context) => const MyTicketScreen(),
+        '/tickets_detail': (context) => const TicketsDetailScreen(),
         '/order': (context) => const OderScreen(),
       },
+      // home: TicketsDetailScreen(),
     );
   }
 }

@@ -49,7 +49,7 @@ class SuccessCheckoutScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   // TODO: Điều hướng tới màn hình My Ticket
-                  Navigator.pop(context);
+                 Navigator.pushReplacementNamed(context, '/my_ticket');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,

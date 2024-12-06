@@ -132,7 +132,7 @@ class SigninScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       // Chuyển sang màn hình Home
-                      Navigator.pushReplacementNamed(context, '/home');
+                      Navigator.pushReplacementNamed(context, '/');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,

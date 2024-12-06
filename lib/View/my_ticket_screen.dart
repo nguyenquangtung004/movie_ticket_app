@@ -153,6 +153,7 @@ class _MyTicketScreenState extends State<MyTicketScreen> {
             final ticket = getFilteredTickets()[index];
             return GestureDetector(
               onTap: () {
+                Navigator.pushReplacementNamed(context, '/tickets_detail');
                 print("Thực hiện chuyển màn");
               },
               child: Container(
