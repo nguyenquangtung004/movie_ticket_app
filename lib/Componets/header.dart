@@ -14,8 +14,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           crossAxisAlignment: CrossAxisAlignment.center, // TODO: Căn giữa dọc
           children: [
             // TODO: Thêm tiêu đề chính cho AppBar
-            Padding(
-              padding: const EdgeInsets.only(
+            const Padding(
+              padding: EdgeInsets.only(
                 top: 13.0,
                 bottom: 13.0,
                 left: 15.0,
@@ -37,7 +37,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ],
                 ),
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white, // TODO: Đặt màu chữ là trắng
                 ),
               ),
