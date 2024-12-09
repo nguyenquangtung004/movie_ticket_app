@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_ticket_app/View/home_screen.dart';
 import 'package:movie_ticket_app/View/my_ticket_screen.dart';
+import 'package:movie_ticket_app/View/my_wallet_screen.dart';
 import 'package:movie_ticket_app/main.dart'; // TODO: Import màn hình chính từ main.dart
 
 class BottomNavBar extends StatefulWidget {
@@ -16,7 +17,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   // TODO: Danh sách các màn hình
   final List<Widget> _screens = [
     const HomeScreen(),
-    const WalletScreen(),
+    const MyWalletScreen(),
     const MyTicketScreen(),
   ];
 

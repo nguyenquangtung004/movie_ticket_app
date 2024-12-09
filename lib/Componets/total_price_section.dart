@@ -41,29 +41,28 @@ class TotalPriceSection extends StatelessWidget {
             ],
           ),
           ElevatedButton(
-  onPressed: selectedSeatsCount > 0
-      ? () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const OderScreen(),
+            onPressed: selectedSeatsCount > 0
+                ? () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const OderScreen(),
+                      ),
+                    );
+                  }
+                : null,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
             ),
-          );
-        }
-      : null,
-  style: ElevatedButton.styleFrom(
-    backgroundColor: Colors.blue,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
-    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
-  ),
-  child: const Text(
-    'Book Ticket',
-    style: TextStyle(color: Colors.white, fontSize: 16),
-  ),
-),
-
+            child: const Text(
+              'Book Ticket',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ),
         ],
       ),
     );
