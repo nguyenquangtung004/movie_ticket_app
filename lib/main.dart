@@ -4,6 +4,7 @@ import 'package:movie_ticket_app/View/SignIn_screen.dart';
 import 'package:movie_ticket_app/View/my_wallet_screen.dart';
 import 'package:movie_ticket_app/View/on_boarding.dart';
 import 'package:movie_ticket_app/View/sign_up_screen.dart';
+import 'package:movie_ticket_app/View/sucess_top_up_screen.dart';
 import 'package:movie_ticket_app/View/tickets_detail_screen.dart';
 import 'package:movie_ticket_app/View/user_profiling_screen.dart';
 import 'package:movie_ticket_app/View/confirmation_profile.dart';
@@ -47,6 +48,7 @@ class MainApp extends StatelessWidget {
         '/': (context) => const BottomNavBar(),
         '/my_wallet': (context) => const MyWalletScreen(),
         '/my_ticket': (context) => const MyTicketScreen(),
+        '/suc_top_up': (context) => const SucessTopUpScreen(),
         '/tickets_detail': (context) => const TicketsDetailScreen(),
         '/order': (context) => const OderScreen(),
       },
