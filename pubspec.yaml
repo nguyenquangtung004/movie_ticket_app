@@ -70,6 +70,11 @@ flutter:
     - assets\Barcode.png
     - assets\visa.png
     - assets\suc_top_up.png
+    - assets\EdtProfile.png
+    - assets\my_wallet.png
+    - assets\Language.png
+    - assets\HelpCentre.png
+    - assets\Rate.png
 
    
 

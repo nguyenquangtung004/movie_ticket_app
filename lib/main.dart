@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movie_ticket_app/Componets/visa.dart';
 import 'package:movie_ticket_app/View/SignIn_screen.dart';
+import 'package:movie_ticket_app/View/edit_profile_screen.dart';
 import 'package:movie_ticket_app/View/my_wallet_screen.dart';
 import 'package:movie_ticket_app/View/on_boarding.dart';
+import 'package:movie_ticket_app/View/profile_screen.dart';
 import 'package:movie_ticket_app/View/sign_up_screen.dart';
 import 'package:movie_ticket_app/View/sucess_top_up_screen.dart';
 import 'package:movie_ticket_app/View/tickets_detail_screen.dart';
@@ -46,6 +48,8 @@ class MainApp extends StatelessWidget {
         '/user_profiling': (context) => const UserProfilingScreen(),
         '/confirmation_pro': (context) => const ConfirmationProfileScreen(),
         '/': (context) => const BottomNavBar(),
+        '/profile': (context) => const MyProfileScreen(),
+        '/edit_profile': (context) => const EditProfileScreen(),
         '/my_wallet': (context) => const MyWalletScreen(),
         '/my_ticket': (context) => const MyTicketScreen(),
         '/suc_top_up': (context) => const SucessTopUpScreen(),

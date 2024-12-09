@@ -43,12 +43,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             // TODO: Thêm ảnh đại diện bên phải AppBar
-            ClipOval(
-              child: Image.network(
-                "https://i.pinimg.com/236x/73/ae/e3/73aee3ea228873a5368ff46b67e5aab3.jpg",
-                width: 50, // TODO: Đặt chiều rộng của ảnh đại diện
-                height: 50, // TODO: Đặt chiều cao của ảnh đại diện
-                fit: BoxFit.cover, // FIXME: Đảm bảo ảnh được cắt và hiển thị vừa khung
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/profile');
+              },
+              child: ClipOval(
+                child: Image.network(
+                  "https://i.pinimg.com/236x/73/ae/e3/73aee3ea228873a5368ff46b67e5aab3.jpg",
+                  width: 50, // TODO: Đặt chiều rộng của ảnh đại diện
+                  height: 50, // TODO: Đặt chiều cao của ảnh đại diện
+                  fit: BoxFit.cover, // FIXME: Đảm bảo ảnh được cắt và hiển thị vừa khung
+                ),
               ),
             ),
           ],
