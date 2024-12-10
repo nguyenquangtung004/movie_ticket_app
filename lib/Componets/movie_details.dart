@@ -85,7 +85,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: const Text(
-                            "Đặt vé",
+                            "Book Tickets",
                             style: TextStyle(
                               color: Colors.white, // TODO: Màu chữ của nút
                               fontWeight: FontWeight.bold, // TODO: Kiểu chữ đậm

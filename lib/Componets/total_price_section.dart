@@ -26,15 +26,15 @@ class TotalPriceSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Vé đã đặt: ($selectedSeatsCount Vé)',
-                style: const TextStyle(color: Colors.white, fontSize: 16),
+                'Booked Tickets: \n($selectedSeatsCount Ticket)',
+                style: const TextStyle(color: Colors.white, fontSize: 15),
               ),
               const SizedBox(height: 8),
               Text(
-                'Giá ${(selectedSeatsCount * 50000).toStringAsFixed(0)}',
+                'Price ${(selectedSeatsCount * 50000).toStringAsFixed(0)}',
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
                 ),
               ),
