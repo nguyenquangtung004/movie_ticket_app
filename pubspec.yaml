@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   video_player: ^2.9.2
   intl: ^0.20.1
+  flutter_native_splash: ^2.4.3
 
 dev_dependencies:
   flutter_test:
