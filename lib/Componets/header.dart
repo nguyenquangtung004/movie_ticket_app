@@ -9,6 +9,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: const Color(0xFF0b1028), // TODO: Đặt màu nền của AppBar
       title: SizedBox(
+        height: 120,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween, // TODO: Căn đều khoảng cách giữa các phần tử
           crossAxisAlignment: CrossAxisAlignment.center, // TODO: Căn giữa dọc
@@ -17,7 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             const Padding(
               padding: EdgeInsets.only(
                 top: 13.0,
-                bottom: 13.0,
+                bottom: 12.0,
                 left: 15.0,
               ), // FIXME: Kiểm tra và điều chỉnh khoảng cách nếu cần
               child: Text.rich(
@@ -64,5 +65,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize =>
-      const Size.fromHeight(73.0); // TODO: Đặt chiều cao cố định cho AppBar
+      const Size.fromHeight(80.0); // TODO: Đặt chiều cao cố định cho AppBar
 }

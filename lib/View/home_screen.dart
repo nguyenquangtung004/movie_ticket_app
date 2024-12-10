@@ -11,39 +11,39 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> items = [
-      'Tất cả',
+       'All',
       'Drama',
-      'Hài',
-      'Kinh dị',
-      'Lãng mạn',
-      'Khoa học viễn tưởng',
-      'Giả tưởng',
-      'Ly kỳ',
-      'Phiêu lưu',
-      'Bí ẩn',
+      'Comedy',
+      'Horror',
+      'Romance',
+      'Sci-Fi',
+      'Fantasy',
+      'Thriller',
+      'Adventure',
+      'Mystery',
     ];
 
     final List<Map<String, dynamic>> sliderData = [
       {
-        "title": "Phim 1",
+        "title": "Movie 1",
         "rate": 4.5,
         "image":
             "https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg",
       },
       {
-        "title": "Phim 2",
+        "title": "Movie 2",
         "rate": 4.0,
         "image":
             "https://cdn.pixabay.com/photo/2023/11/10/16/05/anime-8379662_640.jpg",
       },
       {
-        "title": "Phim 3",
+        "title": "Movie 3",
         "rate": 5.0,
         "image":
             "https://cdn.pixabay.com/photo/2020/08/27/18/49/people-5522679_640.jpg",
       },
       {
-        "title": "Phim 4",
+        "title": "Movie 4",
         "rate": 3.5,
         "image":
             "https://cdn.pixabay.com/photo/2017/08/02/00/07/people-2568887_640.jpg",
@@ -138,7 +138,7 @@ class _CustomBodyState extends State<CustomBody> {
             ),
             const SizedBox(height: 10),
             const Text(
-              "Đang chiếu",
+              "Now Showing",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,
@@ -148,7 +148,7 @@ class _CustomBodyState extends State<CustomBody> {
             SliderWidget(sliderData: widget.sliderData),
             const SizedBox(height: 16),
             const Text(
-              "Sắp ra mắt",
+              "Coming Soon",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,
@@ -161,14 +161,14 @@ class _CustomBodyState extends State<CustomBody> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Khuyến mãi",
+                  "Promotions",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
                   ),
                 ),
                 Text(
-                  "Xem tất cả",
+                  "View All",
                   style: TextStyle(
                     color: Color.fromRGBO(52, 173, 252, 1),
                     decoration: TextDecoration.underline,
